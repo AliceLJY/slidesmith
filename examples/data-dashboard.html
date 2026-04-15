@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Data Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #111; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px; }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: KPI Cards -->
+<div class="slide" style="
+  width: 1920px; height: 1080px;
+  background: linear-gradient(180deg, #f0f4ff, #ffffff);
+  padding: 80px; font-family: 'Helvetica Neue', Arial, sans-serif;
+  display: flex; flex-direction: column;
+">
+  <h2 style="font-size: 44px; color: #1e293b; margin-bottom: 12px;">Q1 2026 Performance</h2>
+  <p style="font-size: 20px; color: #64748b; margin-bottom: 48px;">Key metrics at a glance</p>
+
+  <div style="display: flex; gap: 32px; flex: 1;">
+    <div style="flex: 1; background: white; border-radius: 24px; padding: 48px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: center; border-top: 4px solid #667eea;">
+      <p style="font-size: 16px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Revenue</p>
+      <p style="font-size: 56px; font-weight: 800; color: #1e293b; margin-top: 12px;">$4.2M</p>
+      <p style="font-size: 18px; color: #22c55e; margin-top: 8px; font-weight: 600;">+23.5% YoY</p>
+    </div>
+    <div style="flex: 1; background: white; border-radius: 24px; padding: 48px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: center; border-top: 4px solid #f5576c;">
+      <p style="font-size: 16px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Users</p>
+      <p style="font-size: 56px; font-weight: 800; color: #1e293b; margin-top: 12px;">128K</p>
+      <p style="font-size: 18px; color: #22c55e; margin-top: 8px; font-weight: 600;">+18.2% YoY</p>
+    </div>
+    <div style="flex: 1; background: white; border-radius: 24px; padding: 48px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: center; border-top: 4px solid #fbbf24;">
+      <p style="font-size: 16px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">NPS Score</p>
+      <p style="font-size: 56px; font-weight: 800; color: #1e293b; margin-top: 12px;">72</p>
+      <p style="font-size: 18px; color: #22c55e; margin-top: 8px; font-weight: 600;">+5 pts QoQ</p>
+    </div>
+    <div style="flex: 1; background: white; border-radius: 24px; padding: 48px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: center; border-top: 4px solid #22c55e;">
+      <p style="font-size: 16px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Retention</p>
+      <p style="font-size: 56px; font-weight: 800; color: #1e293b; margin-top: 12px;">94.7%</p>
+      <p style="font-size: 18px; color: #22c55e; margin-top: 8px; font-weight: 600;">+3.1% QoQ</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 2: Bar Chart (CSS-only) -->
+<div class="slide" style="
+  width: 1920px; height: 1080px;
+  background: #ffffff; padding: 80px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  display: flex; flex-direction: column;
+">
+  <h2 style="font-size: 44px; color: #1e293b; margin-bottom: 48px;">Monthly Revenue Trend</h2>
+
+  <div style="flex: 1; display: flex; align-items: flex-end; gap: 24px; padding-bottom: 48px; border-bottom: 2px solid #e2e8f0;">
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <p style="font-size: 16px; font-weight: 700; color: #1e293b;">$1.1M</p>
+      <div style="width: 100%; height: 280px; background: linear-gradient(180deg, #667eea, #764ba2); border-radius: 12px 12px 0 0;"></div>
+      <p style="font-size: 16px; color: #64748b;">Jan</p>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <p style="font-size: 16px; font-weight: 700; color: #1e293b;">$1.3M</p>
+      <div style="width: 100%; height: 340px; background: linear-gradient(180deg, #667eea, #764ba2); border-radius: 12px 12px 0 0;"></div>
+      <p style="font-size: 16px; color: #64748b;">Feb</p>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <p style="font-size: 16px; font-weight: 700; color: #1e293b;">$1.8M</p>
+      <div style="width: 100%; height: 480px; background: linear-gradient(180deg, #667eea, #764ba2); border-radius: 12px 12px 0 0;"></div>
+      <p style="font-size: 16px; color: #64748b;">Mar</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

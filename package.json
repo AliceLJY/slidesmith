@@ -1,0 +1,50 @@
+{
+  "name": "slidesmith",
+  "version": "1.0.0",
+  "description": "Forge editable PowerPoint files from HTML slides. Local-first, no upload, no limits, no cost.",
+  "type": "module",
+  "bin": {
+    "slidesmith": "./bin/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "examples/",
+    "README.md",
+    "README_CN.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node bin/cli.mjs examples/pitch-deck.html /tmp/slidesmith-test.pptx",
+    "postinstall": "echo '📦 SlideSmith installed! If you see browser errors, run: npx playwright install chromium'"
+  },
+  "keywords": [
+    "pptx",
+    "powerpoint",
+    "html-to-pptx",
+    "slides",
+    "presentation",
+    "converter",
+    "cli",
+    "editable",
+    "local-first",
+    "no-upload"
+  ],
+  "author": "AliceLJY",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliceLJY/slidesmith.git"
+  },
+  "homepage": "https://github.com/AliceLJY/slidesmith#readme",
+  "bugs": {
+    "url": "https://github.com/AliceLJY/slidesmith/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dom-to-pptx": "^1.1.6",
+    "playwright": "^1.52.0"
+  }
+}
