@@ -1,0 +1,156 @@
+# SlideSmith
+
+**Forge editable PowerPoint files from HTML slides.**
+
+One command turns your HTML + CSS into a fully editable `.pptx` file — text stays as text, shapes stay as shapes, gradients and shadows are preserved. No cloud upload, no slide limits, no cost.
+
+```bash
+npx slidesmith presentation.html
+```
+
+## Why?
+
+| | SlideSmith | SaaS converters | Screenshot-to-PPT |
+|---|---|---|---|
+| Editable text | Yes | Yes | No (images) |
+| Slide limit | Unlimited | 5-50 | Unlimited |
+| Cost | Free | $10-100/mo | Free |
+| Data privacy | 100% local | Cloud upload | 100% local |
+| CSS support | Flexbox, Grid, Gradients | Varies | Everything |
+
+## How it works
+
+1. **Local HTTP server** serves your HTML and assets (images, fonts)
+2. **Headless browser** (Playwright) renders the HTML using a real layout engine
+3. **[dom-to-pptx](https://github.com/atharva9167j/dom-to-pptx)** traverses the rendered DOM, reads computed positions and styles, and maps each element to a native PPTX object via [PptxGenJS](https://github.com/gitbrent/PptxGenJS)
+4. Output: a real `.pptx` file you can edit in PowerPoint, Keynote, or Google Slides
+
+The key insight: the browser's layout engine handles all the hard work (flexbox, grid, absolute positioning). We just read the final computed positions.
+
+## Quick start
+
+### Install globally
+
+```bash
+npm install -g slidesmith
+slidesmith my-slides.html
+```
+
+### Or use directly with npx
+
+```bash
+npx slidesmith my-slides.html
+```
+
+### First-time setup
+
+SlideSmith tries to use your system Chrome first. If no browser is available:
+
+```bash
+npx playwright install chromium
+```
+
+## Usage
+
+```bash
+# Basic — outputs my-slides.pptx in current directory
+slidesmith my-slides.html
+
+# Custom output path
+slidesmith deck.html -o ~/Desktop/presentation.pptx
+
+# Skip font embedding (faster, smaller file)
+slidesmith deck.html --no-fonts
+
+# Quiet mode
+slidesmith deck.html -q
+```
+
+## HTML contract
+
+Mark each slide with `class="slide"` and give it explicit dimensions:
+
+```html
+<div class="slide" style="width: 1920px; height: 1080px; padding: 80px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: Arial, sans-serif; color: white;
+  display: flex; flex-direction: column; justify-content: center;">
+
+  <h1 style="font-size: 72px;">Your title here</h1>
+  <p style="font-size: 28px; margin-top: 20px;">This text is editable in PowerPoint.</p>
+</div>
+```
+
+### Supported CSS
+
+- **Layout**: `display: flex`, `display: grid`, `position: absolute/relative`, `gap`
+- **Background**: `background-color`, `linear-gradient()`, `background-image` (URL/base64)
+- **Borders**: `border`, `border-radius` (including per-corner)
+- **Shadows**: `box-shadow` (single and multiple)
+- **Typography**: `font-family`, `font-size`, `font-weight`, `color`, `text-align`, `line-height`, `letter-spacing`
+- **Transform**: `rotate()` (translate/scale not supported)
+- **Other**: `opacity`, `padding`, `filter: blur()`
+
+### Images
+
+Use absolute URLs or base64 data URIs. Relative paths won't work:
+
+```html
+<!-- Good -->
+<img src="https://example.com/photo.jpg" style="width: 400px; border-radius: 16px;" />
+<img src="data:image/png;base64,..." />
+
+<!-- Won't work -->
+<img src="./photo.jpg" />
+```
+
+### Multiple slides
+
+```html
+<div class="slide" style="width: 1920px; height: 1080px;">
+  <h1>Slide 1</h1>
+</div>
+
+<div class="slide" style="width: 1920px; height: 1080px;">
+  <h1>Slide 2</h1>
+</div>
+```
+
+## Examples
+
+The `examples/` directory includes ready-to-use templates:
+
+- **`minimal.html`** — Single slide, simplest possible input
+- **`pitch-deck.html`** — 5-slide pitch deck with gradients, cards, and tables
+- **`data-dashboard.html`** — KPI cards and CSS-only bar charts
+
+Try them:
+
+```bash
+npx slidesmith examples/pitch-deck.html -o pitch-deck.pptx
+```
+
+## Programmatic API
+
+```javascript
+import { convert } from 'slidesmith/lib/converter.mjs';
+
+const result = await convert('slides.html', 'output.pptx', {
+  quiet: false,
+  autoEmbedFonts: true,
+});
+
+console.log(`${result.slideCount} slides, ${result.fileSize} bytes`);
+```
+
+## Acknowledgments
+
+SlideSmith is a thin CLI wrapper. The heavy lifting is done by:
+
+- **[dom-to-pptx](https://github.com/atharva9167j/dom-to-pptx)** — DOM traversal and PPTX element mapping
+- **[PptxGenJS](https://github.com/gitbrent/PptxGenJS)** — PowerPoint file generation
+- **[Playwright](https://playwright.dev/)** — Headless browser rendering
+
+## License
+
+[MIT](LICENSE)
