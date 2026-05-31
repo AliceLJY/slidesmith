@@ -1,6 +1,7 @@
 {
   "name": "slidesmith",
   "version": "1.0.0",
+  "private": true,
   "description": "Forge editable PowerPoint files from HTML slides. Local-first, no upload, no limits, no cost.",
   "type": "module",
   "bin": {

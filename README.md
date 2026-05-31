@@ -5,8 +5,11 @@
 One command turns your HTML + CSS into a fully editable `.pptx` file — text stays as text, shapes stay as shapes, gradients and shadows are preserved. No cloud upload, no slide limits, no cost.
 
 ```bash
-npx slidesmith presentation.html
+git clone https://github.com/AliceLJY/slidesmith.git && cd slidesmith && npm install
+node bin/cli.mjs presentation.html
 ```
+
+> **Run it locally** — clone and run, no npm install needed. (The npm name `slidesmith` belongs to an unrelated package, so don't `npm i slidesmith`.)
 
 ## Why?
 
@@ -29,18 +32,16 @@ The key insight: the browser's layout engine handles all the hard work (flexbox,
 
 ## Quick start
 
-### Install globally
+### Clone and run
 
 ```bash
-npm install -g slidesmith
-slidesmith my-slides.html
+git clone https://github.com/AliceLJY/slidesmith.git
+cd slidesmith
+npm install
+node bin/cli.mjs my-slides.html
 ```
 
-### Or use directly with npx
-
-```bash
-npx slidesmith my-slides.html
-```
+> Want a short `slidesmith` command? Run `npm link` once inside the repo — it symlinks a local `slidesmith` you can call from anywhere. Nothing is published to npm; the commands below assume you've done this (otherwise use `node bin/cli.mjs`).
 
 ### First-time setup
 
@@ -127,13 +128,13 @@ The `examples/` directory includes ready-to-use templates:
 Try them:
 
 ```bash
-npx slidesmith examples/pitch-deck.html -o pitch-deck.pptx
+node bin/cli.mjs examples/pitch-deck.html -o pitch-deck.pptx
 ```
 
 ## Programmatic API
 
 ```javascript
-import { convert } from 'slidesmith/lib/converter.mjs';
+import { convert } from './lib/converter.mjs';
 
 const result = await convert('slides.html', 'output.pptx', {
   quiet: false,

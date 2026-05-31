@@ -5,8 +5,11 @@
 一行命令把 HTML + CSS 变成可编辑的 `.pptx` 文件——文字还是文字，形状还是形状，渐变和阴影都保留。不上传云端，不限页数，不花钱。
 
 ```bash
-npx slidesmith presentation.html
+git clone https://github.com/AliceLJY/slidesmith.git && cd slidesmith && npm install
+node bin/cli.mjs presentation.html
 ```
+
+> **本地跑** —— clone 下来直接用，不发 npm。（npm 上的 `slidesmith` 是另一个无关的包，别 `npm i slidesmith`。）
 
 ## 为什么做这个？
 
@@ -29,18 +32,16 @@ npx slidesmith presentation.html
 
 ## 快速开始
 
-### 全局安装
+### Clone 下来跑
 
 ```bash
-npm install -g slidesmith
-slidesmith my-slides.html
+git clone https://github.com/AliceLJY/slidesmith.git
+cd slidesmith
+npm install
+node bin/cli.mjs my-slides.html
 ```
 
-### 或者用 npx 直接跑
-
-```bash
-npx slidesmith my-slides.html
-```
+> 想要一个短的 `slidesmith` 命令？在仓库里跑一次 `npm link`，它会软链接一个本地 `slidesmith` 命令供你全局调用。不发布到 npm；下文命令默认你已经 `npm link` 过（否则就用 `node bin/cli.mjs`）。
 
 ### 首次使用
 
@@ -115,13 +116,13 @@ slidesmith deck.html -q
 试试看：
 
 ```bash
-npx slidesmith examples/pitch-deck.html -o pitch-deck.pptx
+node bin/cli.mjs examples/pitch-deck.html -o pitch-deck.pptx
 ```
 
 ## 编程接口
 
 ```javascript
-import { convert } from 'slidesmith/lib/converter.mjs';
+import { convert } from './lib/converter.mjs';
 
 const result = await convert('slides.html', 'output.pptx', {
   quiet: false,
