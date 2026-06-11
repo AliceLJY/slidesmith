@@ -94,16 +94,22 @@ slidesmith deck.html -q
 
 ### 图片
 
-使用绝对 URL 或 base64 data URI：
+相对路径、绝对 URL、base64 data URI 都可以用。相对路径相对 HTML 文件所在目录解析（转换时由本地 server 服务），引用的资源放在该目录或其子目录里即可：
 
 ```html
-<!-- 正确 -->
+<!-- 都可以 -->
+<img src="./photo.jpg" />
+<img src="assets/logo.png" />
 <img src="https://example.com/photo.jpg" style="width: 400px;" />
 <img src="data:image/png;base64,..." />
 
-<!-- 不行 -->
-<img src="./photo.jpg" />
+<!-- 不行：超出 HTML 文件所在目录 -->
+<img src="../elsewhere/photo.jpg" />
 ```
+
+### 安全提示
+
+**只转换你信任的 HTML。** SlideSmith 会在真实的 headless 浏览器里渲染 HTML 并执行其中的脚本（可联网）。不要喂不可信的页面。
 
 ## 示例模板
 
