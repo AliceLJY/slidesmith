@@ -40,7 +40,7 @@ if (args.includes('--help') || args.includes('-h') || args.length === 0) {
   Examples:
     slidesmith presentation.html
     slidesmith deck.html -o ~/Desktop/deck.pptx
-    npx slidesmith my-slides.html
+    node bin/cli.mjs my-slides.html
 
   Powered by dom-to-pptx & PptxGenJS
 `);
@@ -59,13 +59,15 @@ if (args.includes('--version') || args.includes('-v')) {
 const quiet = args.includes('-q') || args.includes('--quiet');
 const noFonts = args.includes('--no-fonts');
 
-// Find input file (first arg that doesn't start with -)
-const positional = args.filter(a => !a.startsWith('-'));
+// Find input file (first arg that doesn't start with - and isn't -o's value)
 const outputFlagIdx = args.findIndex(a => a === '-o' || a === '--output');
 let outputFromFlag = null;
 if (outputFlagIdx !== -1 && args[outputFlagIdx + 1]) {
   outputFromFlag = args[outputFlagIdx + 1];
 }
+const positional = args.filter(
+  (a, i) => !a.startsWith('-') && (outputFlagIdx === -1 || i !== outputFlagIdx + 1)
+);
 
 const inputFile = positional[0];
 if (!inputFile) {

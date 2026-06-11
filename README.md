@@ -94,16 +94,22 @@ Mark each slide with `class="slide"` and give it explicit dimensions:
 
 ### Images
 
-Use absolute URLs or base64 data URIs. Relative paths won't work:
+Relative paths, absolute URLs, and base64 data URIs all work. Relative paths resolve against the HTML file's directory (a local server serves it during conversion), so keep referenced assets in that directory or below:
 
 ```html
-<!-- Good -->
+<!-- All of these work -->
+<img src="./photo.jpg" />
+<img src="assets/logo.png" />
 <img src="https://example.com/photo.jpg" style="width: 400px; border-radius: 16px;" />
 <img src="data:image/png;base64,..." />
 
-<!-- Won't work -->
-<img src="./photo.jpg" />
+<!-- Won't work: outside the HTML file's directory -->
+<img src="../elsewhere/photo.jpg" />
 ```
+
+### Security note
+
+**Only convert HTML you trust.** SlideSmith renders your HTML in a real headless browser and executes its scripts with network access. Don't feed it untrusted pages.
 
 ### Multiple slides
 
