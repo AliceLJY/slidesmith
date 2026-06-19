@@ -30,6 +30,8 @@ node bin/cli.mjs presentation.html
 
 核心洞察：浏览器的排版引擎已经帮你算好了所有布局，我们只是读取最终结果。
 
+**两种模式。** 默认输出**可编辑**的 PPTX（文字仍是文字）。遇到可编辑路径无法翻译的复杂 CSS，加 `--screenshots` 把每页截成像素级精确（但不可编辑）的 2x 图片；而且一旦可编辑转换失败，SlideSmith 会自动降级到截图模式——绝不会给你一个空文件。
+
 ## 快速开始
 
 ### Clone 下来跑
@@ -62,6 +64,9 @@ slidesmith deck.html -o ~/Desktop/presentation.pptx
 
 # 跳过字体嵌入（更快、文件更小）
 slidesmith deck.html --no-fonts
+
+# 截图模式 — 像素级精确、不可编辑（适合复杂 CSS）
+slidesmith deck.html --screenshots
 
 # 安静模式
 slidesmith deck.html -q
@@ -133,6 +138,8 @@ import { convert } from './lib/converter.mjs';
 const result = await convert('slides.html', 'output.pptx', {
   quiet: false,
   autoEmbedFonts: true,
+  mode: 'editable',   // 或 'screenshots'（像素级精确、不可编辑）
+  fallback: true,     // 可编辑转换失败时自动降级截图
 });
 
 console.log(`${result.slideCount} 页, ${result.fileSize} 字节`);
