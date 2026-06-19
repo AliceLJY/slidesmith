@@ -30,6 +30,8 @@ node bin/cli.mjs presentation.html
 
 The key insight: the browser's layout engine handles all the hard work (flexbox, grid, absolute positioning). We just read the final computed positions.
 
+**Two modes.** By default SlideSmith produces **editable** output (text stays text). For decks with exotic CSS the editable path can't translate, pass `--screenshots` to capture each slide as a pixel-perfect (non-editable) 2x image instead. And if editable conversion ever throws, SlideSmith falls back to screenshots automatically — so you never get an empty file.
+
 ## Quick start
 
 ### Clone and run
@@ -62,6 +64,9 @@ slidesmith deck.html -o ~/Desktop/presentation.pptx
 
 # Skip font embedding (faster, smaller file)
 slidesmith deck.html --no-fonts
+
+# Screenshots mode — pixel-perfect, not editable (for decks with exotic CSS)
+slidesmith deck.html --screenshots
 
 # Quiet mode
 slidesmith deck.html -q
@@ -145,6 +150,8 @@ import { convert } from './lib/converter.mjs';
 const result = await convert('slides.html', 'output.pptx', {
   quiet: false,
   autoEmbedFonts: true,
+  mode: 'editable',   // or 'screenshots' (pixel-perfect, not editable)
+  fallback: true,     // auto-fall back to screenshots if editable conversion fails
 });
 
 console.log(`${result.slideCount} slides, ${result.fileSize} bytes`);

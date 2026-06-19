@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "dom-to-pptx": "^1.1.6",
+    "pptxgenjs": "^3.12.0",
     "playwright": "^1.52.0"
   }
 }
