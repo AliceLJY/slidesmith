@@ -2,14 +2,14 @@
 
 **Forge editable PowerPoint files from HTML slides.**
 
-One command turns your HTML + CSS into a fully editable `.pptx` file — text stays as text, shapes stay as shapes, gradients and shadows are preserved. No cloud upload, no slide limits, no cost.
+One command maps supported HTML + CSS into native PowerPoint objects — text stays as text and shapes stay as shapes. When a layout cannot be translated safely, the optional screenshots path preserves its appearance without editability. No cloud upload, no slide limits, no cost.
 
 ```bash
 git clone https://github.com/AliceLJY/slidesmith.git && cd slidesmith && npm install
 node bin/cli.mjs presentation.html
 ```
 
-> **Run it locally** — clone and run, no npm install needed. (The npm name `slidesmith` belongs to an unrelated package, so don't `npm i slidesmith`.)
+> **Run it from a local clone** — install this repository's dependencies with `npm install`; do not install the unrelated package that owns the npm name `slidesmith`.
 
 ## Why?
 
@@ -30,7 +30,7 @@ node bin/cli.mjs presentation.html
 
 The key insight: the browser's layout engine handles all the hard work (flexbox, grid, absolute positioning). We just read the final computed positions.
 
-**Two modes.** By default SlideSmith produces **editable** output (text stays text). For decks with exotic CSS the editable path can't translate, pass `--screenshots` to capture each slide as a pixel-perfect (non-editable) 2x image instead. And if editable conversion ever throws, SlideSmith falls back to screenshots automatically — so you never get an empty file.
+**Two modes.** By default SlideSmith produces **editable** output (text stays text). For decks with exotic CSS the editable path can't translate, pass `--screenshots` to capture each slide as a pixel-perfect (non-editable) 2x image instead. If editable conversion throws, SlideSmith automatically attempts the screenshots path and reports the final mode; fallback can still fail when the browser, input, or output path is unavailable.
 
 ## Quick start
 

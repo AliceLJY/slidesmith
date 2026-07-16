@@ -67,47 +67,66 @@ if (args.includes('--version') || args.includes('-v')) {
   process.exit(0);
 }
 
-// Extract options
-const quiet = args.includes('-q') || args.includes('--quiet');
-const noFonts = args.includes('--no-fonts');
-const noFallback = args.includes('--no-fallback');
+function fail(message) {
+  console.error(`Error: ${message}`);
+  process.exit(1);
+}
 
-// Mode resolution: --screenshots is shorthand; --mode <m> is explicit and wins.
-let mode = args.includes('--screenshots') ? 'screenshots' : 'editable';
-const modeFlagIdx = args.findIndex((a) => a === '--mode');
-if (modeFlagIdx !== -1) {
-  const m = args[modeFlagIdx + 1];
-  if (m !== 'editable' && m !== 'screenshots') {
-    console.error(`Error: --mode must be 'editable' or 'screenshots' (got '${m ?? ''}').`);
-    process.exit(1);
+let quiet = false;
+let noFonts = false;
+let noFallback = false;
+let screenshots = false;
+let explicitMode = null;
+let outputFromFlag = null;
+const positional = [];
+
+for (let i = 0; i < args.length; i += 1) {
+  const arg = args[i];
+  if (arg === '--') {
+    positional.push(...args.slice(i + 1));
+    break;
   }
-  mode = m;
+  if (arg === '-q' || arg === '--quiet') quiet = true;
+  else if (arg === '--no-fonts') noFonts = true;
+  else if (arg === '--no-fallback') noFallback = true;
+  else if (arg === '--screenshots') screenshots = true;
+  else if (arg === '--mode') {
+    const value = args[i + 1];
+    if (!value || value.startsWith('-')) fail('--mode needs a value');
+    if (value !== 'editable' && value !== 'screenshots') {
+      fail(`--mode must be 'editable' or 'screenshots' (got '${value}').`);
+    }
+    explicitMode = value;
+    i += 1;
+  } else if (arg === '-o' || arg === '--output') {
+    const value = args[i + 1];
+    if (!value || value.startsWith('-')) fail(`${arg} needs a value`);
+    if (outputFromFlag !== null) fail('output option specified more than once');
+    outputFromFlag = value;
+    i += 1;
+  } else if (arg.startsWith('-')) {
+    fail(`unknown option: ${arg}`);
+  } else {
+    positional.push(arg);
+  }
 }
 
-// Find input/output, skipping values that belong to -o/--output and --mode.
-const valueIdxs = new Set();
-for (const flag of ['-o', '--output', '--mode']) {
-  const i = args.indexOf(flag);
-  if (i !== -1) valueIdxs.add(i + 1);
-}
-const outputFlagIdx = args.findIndex((a) => a === '-o' || a === '--output');
-const outputFromFlag = outputFlagIdx !== -1 ? args[outputFlagIdx + 1] : null;
-
-const positional = args.filter(
-  (a, i) => !a.startsWith('-') && !valueIdxs.has(i)
-);
+const mode = explicitMode ?? (screenshots ? 'screenshots' : 'editable');
 
 const inputFile = positional[0];
 if (!inputFile) {
-  console.error('Error: No input file specified. Run "slidesmith --help" for usage.');
-  process.exit(1);
+  fail('No input file specified. Run "slidesmith --help" for usage.');
+}
+const allowedPositionals = outputFromFlag ? 1 : 2;
+if (positional.length > allowedPositionals) {
+  fail(`unexpected extra arguments: ${positional.slice(allowedPositionals).join(', ')}`);
 }
 
 // Determine output path
 let outputFile;
 if (outputFromFlag) {
   outputFile = outputFromFlag;
-} else if (positional[1] && positional[1] !== inputFile) {
+} else if (positional[1]) {
   outputFile = positional[1];
 } else {
   // Default: same name, .pptx extension, in current directory
@@ -118,7 +137,8 @@ if (outputFromFlag) {
 }
 
 // --- Run conversion ---
-console.log(`\n  SlideSmith\n`);
+const log = quiet ? () => {} : console.log;
+log(`\n  SlideSmith\n`);
 const startTime = Date.now();
 
 try {
@@ -137,7 +157,7 @@ try {
       ? ' — screenshots (editable failed, fell back; not editable)'
       : ' — screenshots (not editable)';
   }
-  console.log(`\n  Done in ${elapsed}s — ${result.slideCount} slide${plural}${modeNote}\n`);
+  log(`\n  Done in ${elapsed}s — ${result.slideCount} slide${plural}${modeNote}\n`);
 } catch (err) {
   console.error(`\n  Error: ${err.message}\n`);
   process.exit(1);

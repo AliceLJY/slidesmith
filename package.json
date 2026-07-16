@@ -1,6 +1,6 @@
 {
   "name": "slidesmith",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Forge editable PowerPoint files from HTML slides. Local-first, no upload, no limits, no cost.",
   "type": "module",
@@ -16,8 +16,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node bin/cli.mjs examples/pitch-deck.html /tmp/slidesmith-test.pptx",
-    "postinstall": "echo '📦 SlideSmith installed! If you see browser errors, run: npx playwright install chromium'"
+    "test": "node --test && npm run test:e2e",
+    "test:e2e": "node bin/cli.mjs examples/pitch-deck.html /tmp/slidesmith-test.pptx"
   },
   "keywords": [
     "pptx",
@@ -45,8 +45,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "dom-to-pptx": "^1.1.6",
+    "dom-to-pptx": "^1.1.10",
     "pptxgenjs": "^3.12.0",
-    "playwright": "^1.52.0"
+    "playwright": "^1.61.1"
   }
 }
