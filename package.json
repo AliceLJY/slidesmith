@@ -16,8 +16,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test && npm run test:e2e",
-    "test:e2e": "node bin/cli.mjs examples/pitch-deck.html /tmp/slidesmith-test.pptx"
+    "test": "node --test",
+    "test:e2e": "node --test test/e2e.test.mjs"
   },
   "keywords": [
     "pptx",
