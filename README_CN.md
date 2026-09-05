@@ -116,6 +116,18 @@ slidesmith deck.html -q
 
 **只转换你信任的 HTML。** SlideSmith 会在真实的 headless 浏览器里渲染 HTML 并执行其中的脚本（可联网）。不要喂不可信的页面。
 
+### 多页
+
+```html
+<div class="slide" style="width: 1920px; height: 1080px;">
+  <h1>第 1 页</h1>
+</div>
+
+<div class="slide" style="width: 1920px; height: 1080px;">
+  <h1>第 2 页</h1>
+</div>
+```
+
 ## 示例模板
 
 `examples/` 目录包含几个现成的模板：
