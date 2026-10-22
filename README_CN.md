@@ -4,6 +4,8 @@
 
 > **状态：** 稳定 · 低频维护 · 2026-10 最后核验。
 
+**适用场景：** AI（或你自己）用 HTML 做好了一套幻灯片，但要交给的人只收 PowerPoint 文件。
+
 一行命令把支持的 HTML + CSS 映射成 PowerPoint 原生对象——文字还是文字，形状还是形状。遇到无法可靠翻译的布局，可改用截图模式保留外观，但截图内容不可编辑。不上传云端，不限页数，不花钱。
 
 ```bash
@@ -13,13 +15,15 @@ node bin/cli.mjs presentation.html
 
 > **本地跑** —— clone 下来直接用，不发 npm。（npm 上的 `slidesmith` 是另一个无关的包，别 `npm i slidesmith`。）
 
+![examples/pitch-deck.html 第 2 页：左边是浏览器里的 HTML，右边是生成的 PPTX（用 officecli 渲染）；从 PPTX 里抽文本，拿到的是原样的文字。](docs/assets/html-vs-pptx.png)
+
 ## 为什么做这个？
 
 | | SlideSmith | SaaS 转换工具 | 截图贴 PPT |
 |---|---|---|---|
 | 文字可编辑 | 是 | 是 | 否（变成图片） |
-| 页数限制 | 无限 | 5-50 页 | 无限 |
-| 费用 | 免费 | ¥70-700/月 | 免费 |
+| 页数限制 | 无限 | 免费版常见限页 | 无限 |
+| 费用 | 免费 | 多为付费订阅 | 免费 |
 | 数据隐私 | 100% 本地 | 上传云端 | 100% 本地 |
 | CSS 支持 | Flexbox、Grid、渐变 | 因平台而异 | 全部（反正是图片） |
 
@@ -28,7 +32,7 @@ node bin/cli.mjs presentation.html
 1. **本地 HTTP 服务器** 托管 HTML 和资源文件（图片、字体）
 2. **无头浏览器**（Playwright）渲染 HTML，利用真实的浏览器排版引擎处理 flexbox/grid 布局
 3. **[dom-to-pptx](https://github.com/atharva9167j/dom-to-pptx)** 遍历渲染后的 DOM，读取每个元素的最终位置和样式，映射为 PPTX 原生对象（通过 [PptxGenJS](https://github.com/gitbrent/PptxGenJS)）
-4. 输出：真正的 `.pptx` 文件，在 PowerPoint、Keynote、Google Slides 中均可编辑
+4. 输出：由原生文本框和形状组成的真正 `.pptx` 文件。可编辑性是解包生成的 XML 核过的；PowerPoint、Keynote、Google Slides 都能导入 `.pptx`，但本仓没有逐个应用系统测试
 
 核心洞察：浏览器的排版引擎已经帮你算好了所有布局，我们只是读取最终结果。
 
@@ -99,6 +103,12 @@ slidesmith deck.html -q
 - **变换**: `rotate()`（translate/scale 暂不支持）
 - **其他**: `opacity`, `padding`, `filter: blur()`
 
+### 已知限制
+
+- **渐变会变成图片。** 上游库把 `linear-gradient()` 背景导出成位图，文件会变大：自带的 5 页 `pitch-deck.html` 示例生成 3.43 MB，大头是两张渐变背景。
+- **输出页面固定 16:9**（13.33 × 7.5 英寸）。幻灯片请按 1920×1080 或 960×540 制作，其他宽高比不会保留。
+- 不支持 `translate()` / `scale()` 变换。
+
 ### 图片
 
 相对路径、绝对 URL、base64 data URI 都可以用。相对路径相对 HTML 文件所在目录解析（转换时由本地 server 服务），引用的资源放在该目录或其子目录里即可：
@@ -158,6 +168,10 @@ const result = await convert('slides.html', 'output.pptx', {
 
 console.log(`${result.slideCount} 页, ${result.fileSize} 字节`);
 ```
+
+## 背景
+
+这个工具为什么做、怎么做出来的：[docs/story.md](docs/story.md)。
 
 ## 致谢
 

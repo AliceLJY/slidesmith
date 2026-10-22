@@ -45,7 +45,8 @@ if (args.includes('--help') || args.includes('-h') || args.length === 0) {
   HTML Contract:
     - Mark each slide with class="slide"
     - Recommended: 1920x1080 or 960x540 (16:9)
-    - Images: use absolute URLs or base64 data URIs
+    - Images: relative paths (inside the HTML file's directory),
+      absolute URLs, or base64 data URIs
     - Inline styles recommended for best results
 
   Examples:
