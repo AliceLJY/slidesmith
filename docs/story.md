@@ -1,7 +1,7 @@
 # SlideSmith 与 scenecast：把 HTML 变成 PPT 和视频
 
 > 状态：SlideSmith v1.1.0、scenecast v0.1.0（两个版本都发于 2026 年 7 月 17 日），本地命令行工具，clone 下来跑，不发 npm。开源，MIT 协议。两个都还能用：SlideSmith 定位是低频备用工具，scenecast 自 7 月中旬后没再改动。
-> 入口：[SlideSmith](https://github.com/AliceLJY/slidesmith) · [scenecast](https://github.com/AliceLJY/scenecast) · [SlideSmith Vision](https://github.com/AliceLJY/slidesmith-vision)
+> 入口：[SlideSmith](https://github.com/AliceLJY/slidesmith) · [scenecast](https://github.com/AliceLJY/scenecast) · [SlideSmith Vision](https://github.com/AliceLJY/slidesmith-vision)（2026-10-22 已归档）
 
 ## 它解决什么
 
@@ -53,7 +53,7 @@ scenecast 是 6 月初从周报管线里抽出来的。那时周报已经是「�
 
 ## 入口
 
-- 代码与文档：[github.com/AliceLJY/slidesmith](https://github.com/AliceLJY/slidesmith) · [github.com/AliceLJY/scenecast](https://github.com/AliceLJY/scenecast) · [github.com/AliceLJY/slidesmith-vision](https://github.com/AliceLJY/slidesmith-vision)
+- 代码与文档：[github.com/AliceLJY/slidesmith](https://github.com/AliceLJY/slidesmith) · [github.com/AliceLJY/scenecast](https://github.com/AliceLJY/scenecast) · [github.com/AliceLJY/slidesmith-vision](https://github.com/AliceLJY/slidesmith-vision)（2026-10-22 已归档）
 - 作者：小试AI，公众号「我的AI小木屋」
 
 本页截至 SlideSmith v1.1.0 / scenecast v0.1.0，2026 年 9 月 8 日整理。
