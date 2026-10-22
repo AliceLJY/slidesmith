@@ -2,6 +2,8 @@
 
 **Forge editable PowerPoint files from HTML slides.**
 
+> **Status:** stable · low-frequency maintenance · last verified 2026-10.
+
 One command maps supported HTML + CSS into native PowerPoint objects — text stays as text and shapes stay as shapes. When a layout cannot be translated safely, the optional screenshots path preserves its appearance without editability. No cloud upload, no slide limits, no cost.
 
 ```bash
