@@ -48,5 +48,8 @@
     "dom-to-pptx": "^1.1.10",
     "pptxgenjs": "^3.12.0",
     "playwright": "^1.61.1"
+  },
+  "overrides": {
+    "image-size": "^2.0.4"
   }
 }

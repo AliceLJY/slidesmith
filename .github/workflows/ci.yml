@@ -19,7 +19,4 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npx playwright install --with-deps chromium
       - run: npm test
-      # image-size 的两条 high advisory 上游尚无补丁（advisory 覆盖 <=2.0.2，
-      # 而 npm 上最新版就是 2.0.2；链路 dom-to-pptx -> pptxgenjs -> image-size）。
-      # 暂放宽到 critical，漏洞列表仍打印在日志里；上游发补丁后删掉 --audit-level 调回默认。
-      - run: npm audit --omit=dev --audit-level=critical
+      - run: npm audit --omit=dev
