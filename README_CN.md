@@ -10,7 +10,7 @@
 
 ```bash
 git clone https://github.com/AliceLJY/slidesmith.git && cd slidesmith && npm install
-node bin/cli.mjs presentation.html
+node bin/cli.mjs examples/minimal.html   # 生成 minimal.pptx；需要 Chrome/Edge 或 Playwright 的 Chromium
 ```
 
 > **本地跑** —— clone 下来直接用，不发 npm。（npm 上的 `slidesmith` 是另一个无关的包，别 `npm i slidesmith`。）
@@ -46,8 +46,10 @@ node bin/cli.mjs presentation.html
 git clone https://github.com/AliceLJY/slidesmith.git
 cd slidesmith
 npm install
-node bin/cli.mjs my-slides.html
+node bin/cli.mjs examples/minimal.html
 ```
+
+这条命令转换仓库自带的示例，在当前目录生成 `minimal.pptx`。转换自己的幻灯片时换成你的 HTML 文件，文件要符合下面的 [HTML 编写规范](#html-编写规范)。转换需要浏览器：如果看到 `No browser found`，先做下面[首次使用](#首次使用)那一步，再重跑这条命令。
 
 > 想要一个短的 `slidesmith` 命令？在仓库里跑一次 `npm link`，它会软链接一个本地 `slidesmith` 命令供你全局调用。不发布到 npm；下文命令默认你已经 `npm link` 过（否则就用 `node bin/cli.mjs`）。
 
