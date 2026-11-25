@@ -10,7 +10,7 @@ One command maps supported HTML + CSS into native PowerPoint objects — text st
 
 ```bash
 git clone https://github.com/AliceLJY/slidesmith.git && cd slidesmith && npm install
-node bin/cli.mjs presentation.html
+node bin/cli.mjs examples/minimal.html   # writes minimal.pptx; needs Chrome/Edge or Playwright's Chromium
 ```
 
 > **Run it from a local clone** — install this repository's dependencies with `npm install`; do not install the unrelated package that owns the npm name `slidesmith`.
@@ -46,8 +46,10 @@ The key insight: the browser's layout engine handles all the hard work (flexbox,
 git clone https://github.com/AliceLJY/slidesmith.git
 cd slidesmith
 npm install
-node bin/cli.mjs my-slides.html
+node bin/cli.mjs examples/minimal.html
 ```
+
+This converts the bundled example and writes `minimal.pptx` to the current directory. For your own deck, pass your HTML file instead; it must follow the [HTML contract](#html-contract) below. The conversion needs a browser: if you see `No browser found`, do the [first-time setup](#first-time-setup) step and run the command again.
 
 > Want a short `slidesmith` command? Run `npm link` once inside the repo — it symlinks a local `slidesmith` you can call from anywhere. Nothing is published to npm; the commands below assume you've done this (otherwise use `node bin/cli.mjs`).
 
